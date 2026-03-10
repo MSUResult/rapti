@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-jakarta);
+  --font-mono: var(--font-jakarta);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Add this to your CSS file */
+/* Screen texture only */
+.certificate {
+  background-image: radial-gradient(#d1d5db 0.5px, transparent 0.5px);
+  background-size: 20px 20px;
+}
+
+/* Clean export */
+.certificate.exporting {
+  background-image: none !important;
+}
