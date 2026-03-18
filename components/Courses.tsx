@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Monitor,
   Award,
@@ -16,20 +16,15 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 const courses = [
+  // ... (Keep your courses array exactly as it is)
   {
     icon: Monitor,
     title: "CCC Certification",
     subtitle: "Course on Computer Concepts",
-    description:
-      "Essential computer literacy course recognized by the Government of India. Perfect for beginners and government job aspirants.",
+    description: "Essential computer literacy course recognized by the Government of India. Perfect for beginners and government job aspirants.",
     duration: "3 Months",
     students: "5000+",
-    features: [
-      "Basic Computer Skills",
-      "MS Office Suite",
-      "Internet & Email",
-      "Digital Finance",
-    ],
+    features: ["Basic Computer Skills", "MS Office Suite", "Internet & Email", "Digital Finance"],
     color: "from-blue-600 to-cyan-500",
     iconBg: "bg-blue-100 text-blue-600",
   },
@@ -37,16 +32,10 @@ const courses = [
     icon: FileCode,
     title: "O Level Diploma",
     subtitle: "Foundation Level IT Course",
-    description:
-      "Comprehensive IT diploma equivalent to Foundation Level course, recognized for government jobs and higher studies.",
+    description: "Comprehensive IT diploma equivalent to Foundation Level course, recognized for government jobs and higher studies.",
     duration: "1 Year",
     students: "3000+",
-    features: [
-      "Python Programming",
-      "Web Technologies",
-      "IoT Fundamentals",
-      "Database Mgt.",
-    ],
+    features: ["Python Programming", "Web Technologies", "IoT Fundamentals", "Database Mgt."],
     color: "from-indigo-600 to-purple-500",
     iconBg: "bg-indigo-100 text-indigo-600",
     featured: true,
@@ -55,16 +44,10 @@ const courses = [
     icon: GraduationCap,
     title: "DCA Program",
     subtitle: "Diploma in Computer Applications",
-    description:
-      "Advanced diploma program covering comprehensive IT skills with hands-on project experience and industry exposure.",
+    description: "Advanced diploma program covering comprehensive IT skills with hands-on project experience and industry exposure.",
     duration: "1 Year",
     students: "2000+",
-    features: [
-      "Advanced Programming",
-      "Software Dev",
-      "Networking Basics",
-      "Project Work",
-    ],
+    features: ["Advanced Programming", "Software Dev", "Networking Basics", "Project Work"],
     color: "from-amber-500 to-orange-500",
     iconBg: "bg-amber-100 text-amber-600",
   },
@@ -72,16 +55,10 @@ const courses = [
     icon: BookOpen,
     title: "DIT Diploma",
     subtitle: "Diploma in Information Technology",
-    description:
-      "A career-oriented program focusing on core IT infrastructure, hardware, and essential software engineering concepts.",
+    description: "A career-oriented program focusing on core IT infrastructure, hardware, and essential software engineering concepts.",
     duration: "1 Year",
     students: "1500+",
-    features: [
-      "Hardware & Networking",
-      "Operating Systems",
-      "System Analysis",
-      "IT Security",
-    ],
+    features: ["Hardware & Networking", "Operating Systems", "System Analysis", "IT Security"],
     color: "from-emerald-600 to-teal-500",
     iconBg: "bg-emerald-100 text-emerald-600",
   },
@@ -89,74 +66,19 @@ const courses = [
     icon: Calculator,
     title: "Tally Prime",
     subtitle: "Professional Accounting Course",
-    description:
-      "Master the industry-standard accounting software. Learn GST, payroll, and financial management for modern businesses.",
+    description: "Master the industry-standard accounting software. Learn GST, payroll, and financial management for modern businesses.",
     duration: "3 Months",
     students: "4500+",
-    features: [
-      "GST Implementation",
-      "Inventory Management",
-      "Payroll & Taxation",
-      "Financial Reporting",
-    ],
+    features: ["GST Implementation", "Inventory Management", "Payroll & Taxation", "Financial Reporting"],
     color: "from-rose-600 to-pink-500",
     iconBg: "bg-rose-100 text-rose-600",
   },
 ];
 
 export const Courses = () => {
-
-  
   const router = useRouter();
 
-  const [index , setIndex] = useState(0)
-
-  const text =
-   "🎓 Admission Open • CCC Course • O Level Diploma • DCA Program • Tally Prime Training • ";
-
-useEffect(() => {
-  const interval = setInterval(() => {
-    setIndex((prev) => prev + 1);
-  }, 10);
-   return()=> clearInterval(interval)
-
-  })
-
-
   return (
-    <>
- <section className="relative h-[12vh] bg-white border-y border-blue-50 flex items-center overflow-hidden">
-  
-  {/* Soft Blue Radial Glow (Optional for depth) */}
-  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#f0f7ff_0%,_transparent_100%)] opacity-50" />
-
-  {/* Fade Edges to make text "appear" from nowhere */}
-  <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-  <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-
-  <motion.div
-    className="flex whitespace-nowrap items-center"
-    animate={{ x: ["0%", "-50%"] }}
-    transition={{
-      repeat: Infinity,
-      duration: 30, // Slower is often perceived as more "premium"
-      ease: "linear",
-    }}
-    whileHover={{ animationPlayState: "paused" }}
-  >
-    {/* Duplicate 4 times to ensure a smooth, gapless loop on large screens */}
-    {[1, 2, 3, 4].map((i) => (
-      <div key={i} className="flex items-center">
-        <p className="text-3xl md:text-5xl font-extrabold tracking-tight text-blue-900 mx-12">
-          {text}
-        </p>
-        {/* Visual separator: A small blue dot or icon */}
-        <div className="h-2 w-2 rounded-full bg-blue-400 opacity-40" />
-      </div>
-    ))}
-  </motion.div>
-</section>
-
     <motion.section
       initial={{ y: 52, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
@@ -172,9 +94,8 @@ useEffect(() => {
             Popular Programs
           </div>
           <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 md:mb-6 tracking-tight leading-tight">
-            Government Recognized
+            Government Recognized{" "}
             <span className="block md:inline bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
-         
               Courses
             </span>
           </h2>
@@ -184,7 +105,7 @@ useEffect(() => {
           </p>
         </div>
 
-        {/* Courses Grid - Using flex-wrap to handle the 5th card centering */}
+        {/* Courses Grid */}
         <div className="flex flex-wrap justify-center gap-6 md:gap-8">
           {courses.map((course, index) => (
             <div
@@ -202,13 +123,9 @@ useEffect(() => {
                 </div>
               )}
 
-              {/* Card Header Gradient */}
-              <div
-                className={`h-1.5 md:h-2 w-full bg-gradient-to-r ${course.color}`}
-              />
+              <div className={`h-1.5 md:h-2 w-full bg-gradient-to-r ${course.color}`} />
 
               <div className="p-6 md:p-8 flex flex-col h-full flex-grow">
-                {/* Icon & Title */}
                 <div className="mb-4 md:mb-6">
                   <div
                     className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6 transition-transform group-hover:rotate-6 duration-300 ${course.iconBg}`}
@@ -227,37 +144,27 @@ useEffect(() => {
                   {course.description}
                 </p>
 
-                {/* Stats */}
                 <div className="flex items-center gap-3 md:gap-4 mb-6 py-4 border-y border-slate-100">
                   <div className="flex items-center gap-1.5 text-xs md:text-sm">
                     <Clock className="w-4 h-4 text-slate-400" />
-                    <span className="text-slate-700 font-semibold">
-                      {course.duration}
-                    </span>
+                    <span className="text-slate-700 font-semibold">{course.duration}</span>
                   </div>
                   <div className="h-4 w-[1px] bg-slate-200" />
                   <div className="flex items-center gap-1.5 text-xs md:text-sm">
                     <Users className="w-4 h-4 text-slate-400" />
-                    <span className="text-slate-700 font-semibold">
-                      {course.students}
-                    </span>
+                    <span className="text-slate-700 font-semibold">{course.students}</span>
                   </div>
                 </div>
 
-                {/* Features */}
                 <ul className="space-y-3 mb-8">
                   {course.features.map((feature, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-3 text-xs md:text-sm text-slate-600"
-                    >
+                    <li key={i} className="flex items-start gap-3 text-xs md:text-sm text-slate-600">
                       <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
                       <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
 
-                {/* CTA Button */}
                 <button
                   className={`w-full py-3.5 md:py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-300 mt-auto ${
                     course.featured
@@ -274,11 +181,9 @@ useEffect(() => {
           ))}
         </div>
 
-        {/* Bottom CTA Section */}
         <div className="text-center mt-12 md:mt-20 bg-white border border-slate-200 p-6 md:p-10 rounded-2xl md:rounded-3xl shadow-sm max-w-4xl mx-auto">
           <p className="text-slate-600 mb-4 font-medium text-sm md:text-base">
-            Looking for something else? We offer customized corporate training
-            and workshops.
+            Looking for something else? We offer customized corporate training and workshops.
           </p>
           <button className="inline-flex items-center gap-2 text-indigo-600 font-bold hover:text-indigo-700 transition-all underline-offset-4 hover:underline text-sm md:text-base">
             Explore All 20+ Courses
@@ -287,6 +192,5 @@ useEffect(() => {
         </div>
       </div>
     </motion.section>
-    </>
   );
 };

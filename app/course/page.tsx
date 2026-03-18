@@ -18,7 +18,7 @@ const CourseSection = () => {
   const resources = [
     {
       title: "Download Syllabus",
-      href: "https://student.nielit.gov.in/Home.aspx",
+      href: "https://www.nielit.gov.in/content/computer-course-0",
       icon: <BookOpen size={18} />,
     },
     {
@@ -26,11 +26,7 @@ const CourseSection = () => {
       href: "https://student.nielit.gov.in/Home.aspx",
       icon: <Search size={18} />,
     },
-    {
-      title: "Download Datesheet",
-      href: "/result",
-      icon: <Calendar size={18} />,
-    },
+
     {
       title: "Admit Card/Results",
       href: "/result",
@@ -38,7 +34,7 @@ const CourseSection = () => {
     },
     {
       title: "Old Question Papers",
-      href: "/result",
+      href: "https://www.nielit.gov.in/content/old-question-papers-0",
       icon: <Download size={18} />,
     },
     {

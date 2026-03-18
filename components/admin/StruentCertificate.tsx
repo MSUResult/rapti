@@ -11,7 +11,7 @@ import {
 import { toast } from "sonner";
 
 // Dictionary for auto-filling subjects based on course selection
-const COURSE_SUBJECTS = {
+const COURSE_SUBJECTS: Record<string, string[]> = {
   "Course in Computer Concept": [
     "Intro to computer",
     "Making small presentation",
@@ -34,16 +34,54 @@ const COURSE_SUBJECTS = {
     "Ms-Word, Excel Power Point",
     "Day Book And inventory Report",
     "Internet & E-mail",
-    "Payroll, Vat, Tds, Taxation",
-    "Tally Erp 9.0",
+    "Payroll, VAT, TDS, Taxation",
+    "Tally ERP 9.0",
   ],
-  "Diploma in Computer Application": [
-    "IT tools and business system",
-    "Internet tech and web design",
-    "Intro to multimedia",
-    "Programming in c language",
-    "",
-    "",
+  "CERTIFICATE COURSE IN TYPING(HINDI/ENGLISH)": [
+    "ENGLISH TYPING",
+    "HINDI TYPING",
+  ],
+  "CERTIFICATE COURSE IN COMPUTER APPLICATION": [
+    "INTRO TO COMPUTERS",
+    "ELEMENT OF WORD PROCESSING",
+    "WINDOW OS & GUI",
+    "SPREADSHEET",
+    "COMP COMM & INTERNET",
+    "MAKING SMALL PRESENTATION",
+  ],
+  "DIPLOMA IN INFORMATION TECHNOLOGY": [
+    "IT TOOLS & MS OFFICE",
+    "PROGRAMMING IN C",
+    "HTML & WEB TECHNOLOGY",
+    "MULTIMEDIA",
+  ],
+  "ADVANCE DIPLOMA IN COMPUTER APPLICATION": [
+    "IT TOOLS & MS OFFICE",
+    "PROGRAMMING IN C",
+    "HTML & WEB TECHNOLOGY",
+    "MULTIMEDIA",
+  ],
+  "DIPLOMA IN COMPUTER APPLICATION": [
+    "IT TOOLS & MS OFFICE",
+    "ENGLISH TYPING",
+    "HINDI TYPING",
+    "MULTIMEDIA",
+  ],
+  "BASIC COURSE IN COMPUTER APPLICATION": [
+    "INTRO TO COMPUTERS",
+    "ELEMENT OF WORD PROCESSING",
+    "WINDOWS OS & GUI",
+    "SPREADSHEET",
+    "COMP COMM & INTERNET",
+    "MAKING SMALL PRESENTATION",
+  ],
+  "CERTIFICATE COURSE IN FINANCIAL ACCOUNTING": [
+    "ACCOUNTING BASICS",
+    "FINAL ACCOUNTS",
+    "VOUCHER TYPES & ENTRIES",
+    "DAY BOOK & INVENTORY REPORT",
+    "PAYROLL, VAT, TDS, TAXATION",
+    "TALLY ERP 9.0 with GST",
   ],
   Other: ["", "", "", "", "", ""],
 };
@@ -52,7 +90,7 @@ const StudentCertificate = () => {
   const [loading, setLoading] = useState(false);
 
   const initialData = {
-    certificateNumber: "",
+    certificateNumber: "RAPTI/", // Pre-filled prefix
     registrationNumber: "",
     name: "",
     dob: "",
@@ -65,15 +103,16 @@ const StudentCertificate = () => {
     courseName: "",
     customCourseName: "",
     duration: "",
-    startDate: "",
-    endDate: "",
+    startDate: "", // Optional
+    endDate: "", // Optional
+    passout: "", // New Optional Field
     subjects: ["", "", "", "", "", ""],
   };
 
   const [formData, setFormData] = useState(initialData);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     let updatedData = { ...formData, [name]: value };
@@ -90,21 +129,22 @@ const StudentCertificate = () => {
 
   const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCourse = e.target.value;
-    const autoFillSubjects = COURSE_SUBJECTS[selectedCourse] || [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-    ];
+    
+    // Get the predefined subjects, or an empty array if none found
+    const predefinedSubjects = COURSE_SUBJECTS[selectedCourse] || [];
+
+    // FIX: Pad the array to ALWAYS be exactly 6 elements to prevent backend errors
+    // If a course only has 2 subjects, the last 4 will safely become empty strings
+    const paddedSubjects = [
+      ...predefinedSubjects,
+      "", "", "", "", "", ""
+    ].slice(0, 6);
 
     setFormData({
       ...formData,
       courseName: selectedCourse,
-      subjects: [...autoFillSubjects],
-      customCourseName:
-        selectedCourse === "Other" ? "" : formData.customCourseName,
+      subjects: paddedSubjects,
+      customCourseName: selectedCourse === "Other" ? "" : formData.customCourseName,
     });
   };
 
@@ -137,10 +177,12 @@ const StudentCertificate = () => {
         throw new Error(data.message || "Failed to save data");
       }
 
-      // SUCCESS TOAST TRIGGERED HERE
-      toast.success(data.message || "Student Certificate Data Saved Successfully!", {
-        description: `Registration No: ${formData.registrationNumber}`,
-      });
+      toast.success(
+        data.message || "Student Certificate Data Saved Successfully!",
+        {
+          description: `Registration No: ${formData.registrationNumber}`,
+        }
+      );
 
       setFormData(initialData);
     } catch (error: any) {
@@ -262,7 +304,7 @@ const StudentCertificate = () => {
             <div className="flex items-center gap-2 text-gray-700 border-b border-gray-200 pb-2 mb-4">
               <FileText size={20} />
               <h3 className="text-lg font-semibold uppercase tracking-wide">
-                Family & Identity
+                Student & Identity
               </h3>
             </div>
 
@@ -319,20 +361,12 @@ const StudentCertificate = () => {
                   className="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
                 >
                   <option value="">Select Course</option>
-                  <option value="Course in Computer Concept">
-                    Course in Computer Concept
-                  </option>
-                  <option value="O Level">O Level</option>
-                  <option value="Basic in Computer Application">
-                    Basic in Computer Application
-                  </option>
-                  <option value="Certificate Course in Computer Accounting">
-                    Certificate Course in Computer Accounting
-                  </option>
-                  <option value="Diploma in Computer Application">
-                    Diploma in Computer Application
-                  </option>
-                  <option value="Other">Other</option>
+                  {/* FIX: Dynamically mapping options from the dictionary so new ones always show up */}
+                  {Object.keys(COURSE_SUBJECTS).map((courseKey) => (
+                    <option key={courseKey} value={courseKey}>
+                      {courseKey}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -347,11 +381,11 @@ const StudentCertificate = () => {
                   className="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
                 >
                   <option value="">Select Duration</option>
-                  <option value="1 Month">1 Month</option>
                   <option value="2 Months">2 Months</option>
                   <option value="3 Months">3 Months</option>
                   <option value="4 Months">4 Months</option>
                   <option value="6 Months">6 Months</option>
+                  <option value="12 Months">12 Months</option>
                 </select>
               </div>
 
@@ -368,19 +402,28 @@ const StudentCertificate = () => {
               )}
 
               <InputField
-                label="Start Date"
+                label="Start Date (Optional)"
                 name="startDate"
                 type="date"
                 value={formData.startDate}
                 onChange={handleChange}
               />
               <InputField
-                label="End Date"
+                label="End Date (Optional)"
                 name="endDate"
                 type="date"
                 value={formData.endDate}
                 onChange={handleChange}
               />
+              <div className="md:col-span-2">
+                <InputField
+                  label="Passout Year/Status (Optional)"
+                  name="passout"
+                  value={formData.passout}
+                  onChange={handleChange}
+                  placeholder="e.g. 2025 or Completed"
+                />
+              </div>
             </div>
 
             {(formData.courseName || formData.courseName === "Other") && (
