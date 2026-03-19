@@ -14,11 +14,11 @@ import {
   MapPin,
   Fingerprint,
   ChevronRight,
-  GraduationCap
+  GraduationCap,
 } from "lucide-react";
 import { toast } from "sonner";
 import { QRCodeSVG } from "qrcode.react";
-import { toPng } from 'html-to-image';
+import { toPng } from "html-to-image";
 
 const CertificateSearch = () => {
   const [regNo, setRegNo] = useState("");
@@ -35,7 +35,9 @@ const CertificateSearch = () => {
 
     setLoading(true);
     try {
-      const res = await fetch(`/api/studentCertificate/${encodeURIComponent(regNo)}`);
+      const res = await fetch(
+        `/api/studentCertificate/${encodeURIComponent(regNo)}`,
+      );
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
       setStudent(data);
@@ -50,7 +52,7 @@ const CertificateSearch = () => {
 
   const downloadImage = async () => {
     if (!certificateRef.current) return;
-    
+
     setIsDownloading(true);
     toast.info("Polishing your certificate...");
 
@@ -58,7 +60,7 @@ const CertificateSearch = () => {
       const dataUrl = await toPng(certificateRef.current, {
         cacheBust: true,
         pixelRatio: 4,
-        style: { transform: 'scale(1)' },
+        style: { transform: "scale(1)" },
       });
 
       const link = document.createElement("a");
@@ -77,17 +79,16 @@ const CertificateSearch = () => {
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
-        
         {/* 🏆 NEW BIG CARDS FOR EXTERNAL RESULTS */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          <ResultLinkCard 
+          <ResultLinkCard
             title="O-Level Results"
             subtitle="Check NIELIT O-Level Official Portal"
             url={NIELIT_RESULT_URL}
             color="orange"
             icon={<GraduationCap size={28} />}
           />
-          <ResultLinkCard 
+          <ResultLinkCard
             title="CCC Results"
             subtitle="Check Course on Computer Concepts"
             url={NIELIT_RESULT_URL}
@@ -101,18 +102,33 @@ const CertificateSearch = () => {
           <div className="inline-flex p-3 bg-blue-50 rounded-2xl text-blue-600 mb-4">
             <ShieldCheck size={32} />
           </div>
-          <h2 className="text-2xl font-extrabold text-slate-900 mb-2">Student Verification Portal</h2>
-          <p className="text-slate-500 mb-6 text-sm">Verify your Rapti Computers internal certification details below.</p>
-          
-          <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-3 max-w-lg mx-auto">
+          <h2 className="text-2xl font-extrabold text-slate-900 mb-2">
+            Student Verification Portal
+          </h2>
+          <p className="text-slate-500 mb-6 text-sm">
+            Verify your Rapti Computers internal certification details below.
+          </p>
+
+          <form
+            onSubmit={handleSearch}
+            className="flex flex-col md:flex-row gap-3 max-w-lg mx-auto"
+          >
             <input
               value={regNo}
               onChange={(e) => setRegNo(e.target.value)}
               placeholder="Enter Registration No."
               className="flex-1 p-4 bg-slate-100 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none font-medium text-center"
             />
-            <button disabled={loading} className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all hover:bg-blue-700 active:scale-95">
-              {loading ? <Loader2 className="animate-spin" /> : <Search size={20} />} Search
+            <button
+              disabled={loading}
+              className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all hover:bg-blue-700 active:scale-95"
+            >
+              {loading ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <Search size={20} />
+              )}{" "}
+              Search
             </button>
           </form>
         </div>
@@ -120,15 +136,24 @@ const CertificateSearch = () => {
         {student && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex justify-center">
-              <button onClick={downloadImage} disabled={isDownloading} className="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2 shadow-xl hover:scale-105 transition-all">
-                {isDownloading ? <Loader2 className="animate-spin" /> : <Download size={20} />} Download Certificate
+              <button
+                onClick={downloadImage}
+                disabled={isDownloading}
+                className="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-2 shadow-xl hover:scale-105 transition-all"
+              >
+                {isDownloading ? (
+                  <Loader2 className="animate-spin" />
+                ) : (
+                  <Download size={20} />
+                )}{" "}
+                Download Certificate
               </button>
             </div>
 
-            {/* 📜 CERTIFICATE CARD (Unchanged) */}
+            {/* 📜 CERTIFICATE CARD */}
             <div
               ref={certificateRef}
-              className="bg-white relative overflow-hidden"
+              className="bg-white relative overflow-hidden mx-auto"
               style={{
                 width: "850px",
                 padding: "40px",
@@ -147,50 +172,115 @@ const CertificateSearch = () => {
               <div className="relative z-10">
                 <div className="flex justify-between items-start border-b-2 border-slate-100 pb-6 mb-8">
                   <div>
-                    <h1 className="text-4xl font-black text-blue-700 tracking-tighter">RAPTI COMPUTERS</h1>
-                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">An ISO 9001:2015 Certified Institute</p>
+                    <h1 className="text-4xl font-black text-blue-700 tracking-tighter">
+                      RAPTI COMPUTERS
+                    </h1>
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">
+                      An ISO 9001:2015 Certified Institute
+                    </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase">Certificate No.</p>
-                    <p className="font-mono font-bold text-blue-600">{student.certificateNumber || "N/A"}</p>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase mt-2">Registration No.</p>
-                    <p className="font-mono font-bold text-slate-900">{student.registrationNumber}</p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase">
+                      Certificate No.
+                    </p>
+                    <p className="font-mono font-bold text-blue-600">
+                      {student.certificateNumber || "N/A"}
+                    </p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase mt-2">
+                      Registration No.
+                    </p>
+                    <p className="font-mono font-bold text-slate-900">
+                      {student.registrationNumber}
+                    </p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                   <div className="space-y-5">
-                    <DataGroup icon={<User size={14}/>} label="Student Name" value={student.name} highlight />
-                    <div className="grid grid-cols-2 gap-4">
-                      <DataGroup label="Father's Name" value={student.fatherName} />
-                      <DataGroup label="Mother's Name" value={student.motherName} />
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <DataGroup label="Date of Birth" value={student.dob || "—"} />
-                      <DataGroup label="Gender" value={student.gender || "—"} />
-                    </div>
-                    <DataGroup 
-                      icon={<Fingerprint size={14}/>} 
-                      label={`${student.identityProof || 'Identity Proof'}`} 
-                      value={student.identityDocNo || "—"} 
+                    <DataGroup
+                      icon={<User size={14} />}
+                      label="Student Name"
+                      value={student.name}
+                      highlight
                     />
+                    <div className="grid grid-cols-2 gap-4">
+                      <DataGroup
+                        label="Father's Name"
+                        value={student.fatherName}
+                      />
+                      <DataGroup
+                        label="Mother's Name"
+                        value={student.motherName}
+                      />
+                    </div>
+
+                    {/* Replaced Gender with Identity Info, added Start and End Date row */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <DataGroup
+                        label="Date of Birth"
+                        value={student.dob || "—"}
+                      />
+                      <DataGroup
+                        icon={<Fingerprint size={14} />}
+                        label={`${student.identityProof || "Identity Proof"}`}
+                        value={student.identityDocNo || "—"}
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <DataGroup
+                        label="Starting Date"
+                        value={student.startDate || "—"}
+                      />
+                      <DataGroup
+                        label="Ending Date"
+                        value={student.endDate || "—"}
+                      />
+                    </div>
                   </div>
 
                   <div className="space-y-5">
-                    <DataGroup 
-                      icon={<BookOpen size={14}/>} 
-                      label="Course Name" 
-                      value={student.courseName === "Other" ? student.customCourseName : student.courseName} 
-                      highlight 
+                    <DataGroup
+                      icon={<BookOpen size={14} />}
+                      label="Course Name"
+                      value={
+                        student.courseName === "Other"
+                          ? student.customCourseName
+                          : student.courseName
+                      }
+                      highlight
                       color="text-blue-600"
                     />
-                    <DataGroup label="Duration" value={student.duration || "—"} />
+                    <DataGroup
+                      label="Duration"
+                      value={student.duration || "—"}
+                    />
+
+                    {/* New Subjects Display Block */}
+                    {student.subjects &&
+                      student.subjects.some((sub) => sub.trim() !== "") && (
+                        <div className="pt-2">
+                          <label className="text-[9px] font-black uppercase text-slate-400 tracking-wider flex items-center gap-1.5 mb-1">
+                            <BookOpen size={12} /> Course Subjects
+                          </label>
+                          <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] font-bold text-slate-700">
+                            {student.subjects.map((sub, index) =>
+                              sub.trim() !== "" ? (
+                                <div key={index} className="truncate">
+                                  • {sub}
+                                </div>
+                              ) : null,
+                            )}
+                          </div>
+                        </div>
+                      )}
+
                     <div className="pt-2">
                       <label className="text-[9px] font-black uppercase text-slate-400 tracking-wider flex items-center gap-1.5 mb-1">
                         <MapPin size={12} /> Training Location
                       </label>
                       <p className="text-[11px] leading-tight font-bold text-slate-600">
-                        RAPTI COMPUTERS, Opp. Baliya Kheri Block, Krishna Nagar, Delhi Road, Saharanpur-247001, UP, India
+                        RAPTI COMPUTERS, Opp. Baliya Kheri Block, Krishna Nagar,
+                        Delhi Road, Saharanpur-247001, UP, India
                       </p>
                     </div>
                   </div>
@@ -204,18 +294,23 @@ const CertificateSearch = () => {
                       level="H"
                     />
                     <div>
-                      <p className="text-[8px] font-black text-slate-400 uppercase">Verified Digital Record</p>
-                      <p className="text-[9px] text-slate-500 font-medium max-w-[120px]">Scan this QR code to verify student details online.</p>
+                      <p className="text-[8px] font-black text-slate-400 uppercase">
+                        Verified Digital Record
+                      </p>
+                      <p className="text-[9px] text-slate-500 font-medium max-w-[120px]">
+                        Scan this QR code to verify student details online.
+                      </p>
                     </div>
                   </div>
 
-                  <div className="text-right">
-                    <div className="mb-2">
-                       <p className="font-serif italic text-xl text-slate-300 select-none">RaptiComputers</p>
-                    </div>
-                    <div className="w-44 h-[2px] bg-slate-900 ml-auto"></div>
-                    <p className="text-[10px] font-black uppercase text-slate-900 mt-2 tracking-widest">Authorized Signatory</p>
-                    <p className="text-[8px] font-bold text-slate-400 uppercase">Director / Controller of Exams</p>
+                  <div className="text-right flex flex-col items-end">
+                    {/* YOUR LOGO REPLACES THE TEXT HERE */}
+                    {/* Ensure logo.png is inside your public/ folder */}
+                    <img
+                      src="/rapti-logo1.jpg"
+                      alt="Rapti Computers Logo"
+                      className="h-20 object-contain mb-2"
+                    />
                   </div>
                 </div>
               </div>
@@ -230,21 +325,21 @@ const CertificateSearch = () => {
 // 🏛️ New Helper Component for External Link Cards
 const ResultLinkCard = ({ title, subtitle, url, color, icon }) => {
   const colorStyles = {
-    orange: "bg-orange-50 border-orange-100 text-orange-600 hover:bg-orange-100",
-    emerald: "bg-emerald-50 border-emerald-100 text-emerald-600 hover:bg-emerald-100"
+    orange:
+      "bg-orange-50 border-orange-100 text-orange-600 hover:bg-orange-100",
+    emerald:
+      "bg-emerald-50 border-emerald-100 text-emerald-600 hover:bg-emerald-100",
   };
 
   return (
-    <a 
-      href={url} 
-      target="_blank" 
+    <a
+      href={url}
+      target="_blank"
       rel="noopener noreferrer"
       className={`group flex items-center justify-between p-6 rounded-3xl border-2 transition-all hover:shadow-lg hover:-translate-y-1 ${colorStyles[color]}`}
     >
       <div className="flex items-center gap-4">
-        <div className={`p-3 rounded-2xl bg-white shadow-sm`}>
-          {icon}
-        </div>
+        <div className={`p-3 rounded-2xl bg-white shadow-sm`}>{icon}</div>
         <div>
           <h3 className="font-black text-lg leading-none mb-1">{title}</h3>
           <p className="text-slate-500 text-xs font-medium">{subtitle}</p>
@@ -257,12 +352,20 @@ const ResultLinkCard = ({ title, subtitle, url, color, icon }) => {
   );
 };
 
-const DataGroup = ({ label, value, icon, highlight = false, color = "text-slate-900" }) => (
+const DataGroup = ({
+  label,
+  value,
+  icon,
+  highlight = false,
+  color = "text-slate-900",
+}) => (
   <div>
     <label className="text-[9px] font-black uppercase text-slate-400 tracking-wider flex items-center gap-1.5 mb-1">
       {icon} {label}
     </label>
-    <p className={`${highlight ? "text-xl font-extrabold" : "text-sm font-bold"} ${color} truncate`}>
+    <p
+      className={`${highlight ? "text-xl font-extrabold" : "text-sm font-bold"} ${color} truncate`}
+    >
       {value || "—"}
     </p>
   </div>
