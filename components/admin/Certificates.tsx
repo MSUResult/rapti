@@ -225,7 +225,7 @@ const AdminStudentCertificate = () => {
                 <tr className="bg-gray-50 border-b border-gray-200 text-gray-600 text-xs uppercase tracking-wider">
                   <th className="px-6 py-4 font-bold">Reg & Identity</th>
                   <th className="px-6 py-4 font-bold">Course & Details</th>
-                  <th className="px-6 py-4 font-bold">Family Info</th>
+                  <th className="px-6 py-4 font-bold">Students Info</th>
                   <th className="px-6 py-4 font-bold">Timeline</th>
                   <th className="px-6 py-4 font-bold text-center">Actions</th>
                 </tr>
