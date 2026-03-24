@@ -1,11 +1,18 @@
 "use client";
 import React from "react";
-import { UserPlus, Image as ImageIcon, Award, LayoutDashboard } from "lucide-react";
+import {
+  UserPlus,
+  Image as ImageIcon,
+  Award,
+  LayoutDashboard,
+  Settings, // Added Settings icon
+} from "lucide-react";
 
 const items = [
   { name: "Admission", id: "admission", icon: UserPlus },
   { name: "Gallery", id: "images", icon: ImageIcon },
   { name: "Certificates", id: "certificate", icon: Award },
+  { name: "Security", id: "settings", icon: Settings }, // Added this line
 ];
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
@@ -14,7 +21,9 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
       <div className="p-6 border-b border-slate-800">
         <div className="flex items-center gap-2 text-emerald-400">
           <LayoutDashboard size={24} />
-          <span className="font-bold text-xl tracking-tight text-white">AdminPanel</span>
+          <span className="font-bold text-xl tracking-tight text-white">
+            AdminPanel
+          </span>
         </div>
       </div>
 
@@ -27,9 +36,9 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
-                isActive 
-                ? "bg-emerald-600 text-white shadow-lg shadow-emerald-900/20" 
-                : "text-slate-400 hover:bg-slate-800 hover:text-white"
+                isActive
+                  ? "bg-emerald-600 text-white shadow-lg shadow-emerald-900/20"
+                  : "text-slate-400 hover:bg-slate-800 hover:text-white"
               }`}
             >
               <Icon size={20} />
@@ -41,8 +50,12 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 
       <div className="p-4 border-t border-slate-800">
         <div className="bg-slate-800/50 rounded-lg p-3">
-          <p className="text-xs text-slate-500 uppercase font-bold">Logged in as</p>
-          <p className="text-sm font-medium text-emerald-400">System Administrator</p>
+          <p className="text-xs text-slate-500 uppercase font-bold">
+            Logged in as
+          </p>
+          <p className="text-sm font-medium text-emerald-400">
+            System Administrator
+          </p>
         </div>
       </div>
     </aside>

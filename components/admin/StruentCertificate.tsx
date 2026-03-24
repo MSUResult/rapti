@@ -12,30 +12,30 @@ import { toast } from "sonner";
 
 // Dictionary for auto-filling subjects based on course selection
 const COURSE_SUBJECTS: Record<string, string[]> = {
-  "Course in Computer Concept": [
-    "Intro to computer",
-    "Making small presentation",
-    "Element of word processing",
-    "Computer comm. & internet",
-    "Spreadsheet",
-    "Intro to GUI Base OS",
+  "COURSE IN COMPUTER CONCEPT": [
+    "INTRO TO COMPUTER",
+    "MAKING SMALL PRESENTATION",
+    "ELEMENT OF WORD PROCESSING",
+    "COMPUTER COMM. & INTERNET",
+    "SPREADSHEET",
+    "INTRO TO GUI BASE OS",
   ],
-  "O Level": [
-    "Intro to computer",
-    "Making small presentation",
-    "Element of word processing",
-    "Computer comm. & internet",
-    "Spreadsheet",
-    "Intro to GUI Base OS",
+  "O LEVEL": [
+    "INTRO TO COMPUTER",
+    "MAKING SMALL PRESENTATION",
+    "ELEMENT OF WORD PROCESSING",
+    "COMPUTER COMM. & INTERNET",
+    "SPREADSHEET",
+    "INTRO TO GUI BASE OS",
   ],
-  "Basic in Computer Application": ["", "", "", "", "", ""],
-  "Certificate Course in Computer Accounting": [
-    "Intro to computer",
-    "Ms-Word, Excel Power Point",
-    "Day Book And inventory Report",
-    "Internet & E-mail",
-    "Payroll, VAT, TDS, Taxation",
-    "Tally ERP 9.0",
+  "BASIC IN COMPUTER APPLICATION": ["", "", "", "", "", ""],
+  "CERTIFICATE COURSE IN COMPUTER ACCOUNTING": [
+    "INTRO TO COMPUTER",
+    "MS-WORD, EXCEL POWER POINT",
+    "DAY BOOK AND INVENTORY REPORT",
+    "INTERNET & E-MAIL",
+    "PAYROLL, VAT, TDS, TAXATION",
+    "TALLY ERP 9.0",
   ],
   "CERTIFICATE COURSE IN TYPING(HINDI/ENGLISH)": [
     "ENGLISH TYPING",
@@ -81,16 +81,16 @@ const COURSE_SUBJECTS: Record<string, string[]> = {
     "VOUCHER TYPES & ENTRIES",
     "DAY BOOK & INVENTORY REPORT",
     "PAYROLL, VAT, TDS, TAXATION",
-    "TALLY ERP 9.0 with GST",
+    "TALLY ERP 9.0 WITH GST",
   ],
-  Other: ["", "", "", "", "", ""],
+  OTHER: ["", "", "", "", "", ""],
 };
 
 const StudentCertificate = () => {
   const [loading, setLoading] = useState(false);
 
   const initialData = {
-    certificateNumber: "RAPTI/", // Pre-filled prefix
+    certificateNumber: "RAPTI/",
     registrationNumber: "",
     name: "",
     dob: "",
@@ -98,28 +98,31 @@ const StudentCertificate = () => {
     education: "",
     fatherName: "",
     motherName: "",
-    identityProof: "Aadhar Card",
+    identityProof: "AADHAR CARD",
     identityDocNo: "",
     courseName: "",
     customCourseName: "",
     duration: "",
-    startDate: "", // Optional
-    endDate: "", // Optional
-    passout: "", // New Optional Field
+    startDate: "",
+    endDate: "",
+    passout: "",
     subjects: ["", "", "", "", "", ""],
   };
 
   const [formData, setFormData] = useState(initialData);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    let updatedData = { ...formData, [name]: value };
+
+    // FORCING UPPERCASE FOR ALL TEXT INPUTS
+    const upperValue = value.toUpperCase();
+    let updatedData = { ...formData, [name]: upperValue };
 
     // AUTO-FILL REGISTRATION NUMBER LOGIC
     if (name === "certificateNumber") {
-      const parts = value.split("/");
+      const parts = upperValue.split("/");
       const lastPart = parts[parts.length - 1];
       updatedData.registrationNumber = lastPart;
     }
@@ -129,28 +132,31 @@ const StudentCertificate = () => {
 
   const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCourse = e.target.value;
-    
-    // Get the predefined subjects, or an empty array if none found
     const predefinedSubjects = COURSE_SUBJECTS[selectedCourse] || [];
 
-    // FIX: Pad the array to ALWAYS be exactly 6 elements to prevent backend errors
-    // If a course only has 2 subjects, the last 4 will safely become empty strings
     const paddedSubjects = [
       ...predefinedSubjects,
-      "", "", "", "", "", ""
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
     ].slice(0, 6);
 
     setFormData({
       ...formData,
       courseName: selectedCourse,
       subjects: paddedSubjects,
-      customCourseName: selectedCourse === "Other" ? "" : formData.customCourseName,
+      customCourseName:
+        selectedCourse === "OTHER" ? "" : formData.customCourseName,
     });
   };
 
   const handleSubjectChange = (index: number, value: string) => {
     const newSubjects = [...formData.subjects];
-    newSubjects[index] = value;
+    // FORCING UPPERCASE FOR SUBJECTS
+    newSubjects[index] = value.toUpperCase();
     setFormData({ ...formData, subjects: newSubjects });
   };
 
@@ -181,7 +187,7 @@ const StudentCertificate = () => {
         data.message || "Student Certificate Data Saved Successfully!",
         {
           description: `Registration No: ${formData.registrationNumber}`,
-        }
+        },
       );
 
       setFormData(initialData);
@@ -198,8 +204,8 @@ const StudentCertificate = () => {
     <div className="max-w-5xl mx-auto p-6">
       <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
         <div className="bg-emerald-900 px-8 py-6 text-white">
-          <h2 className="text-3xl font-bold">New Student Entry</h2>
-          <p className="text-emerald-200 mt-1">
+          <h2 className="text-3xl font-bold uppercase">New Student Entry</h2>
+          <p className="text-emerald-200 mt-1 uppercase">
             Save student details to the database.
           </p>
         </div>
@@ -220,14 +226,14 @@ const StudentCertificate = () => {
                 name="certificateNumber"
                 value={formData.certificateNumber}
                 onChange={handleChange}
-                placeholder="e.g. RAPTI/R9/2025158"
+                placeholder="E.G. RAPTI/R9/2025158"
               />
               <InputField
                 label="Registration Number"
                 name="registrationNumber"
                 value={formData.registrationNumber}
                 onChange={handleChange}
-                placeholder="Auto-filled from Certificate"
+                placeholder="AUTO-FILLED"
               />
             </div>
           </div>
@@ -248,7 +254,7 @@ const StudentCertificate = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Student Name"
+                  placeholder="STUDENT NAME"
                 />
               </div>
               <InputField
@@ -260,40 +266,40 @@ const StudentCertificate = () => {
               />
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-1 uppercase">
                   Gender
                 </label>
                 <select
                   name="gender"
                   value={formData.gender}
                   onChange={handleChange}
-                  className="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                  className="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all uppercase"
                 >
-                  <option value="">Select Gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
+                  <option value="">SELECT GENDER</option>
+                  <option value="MALE">MALE</option>
+                  <option value="FEMALE">FEMALE</option>
+                  <option value="OTHER">OTHER</option>
                 </select>
               </div>
 
               <div className="md:col-span-4">
-                <label className="block text-sm font-semibold text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-1 uppercase">
                   Education Qualification
                 </label>
                 <select
                   name="education"
                   value={formData.education}
                   onChange={handleChange}
-                  className="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                  className="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all uppercase"
                 >
-                  <option value="">Select Qualification</option>
-                  <option value="9th">9th</option>
-                  <option value="10th">10th</option>
-                  <option value="11th">11th</option>
-                  <option value="12th Pass">12th Pass</option>
-                  <option value="Graduate">Graduate</option>
-                  <option value="Post Graduate">Post Graduate</option>
-                  <option value="Other">Other</option>
+                  <option value="">SELECT QUALIFICATION</option>
+                  <option value="9TH">9TH</option>
+                  <option value="10TH">10TH</option>
+                  <option value="11TH">11TH</option>
+                  <option value="12TH PASS">12TH PASS</option>
+                  <option value="GRADUATE">GRADUATE</option>
+                  <option value="POST GRADUATE">POST GRADUATE</option>
+                  <option value="OTHER">OTHER</option>
                 </select>
               </div>
             </div>
@@ -314,21 +320,21 @@ const StudentCertificate = () => {
                 name="fatherName"
                 value={formData.fatherName}
                 onChange={handleChange}
-                placeholder="Mr. Name"
+                placeholder="MR. NAME"
               />
               <InputField
                 label="Mother's Name"
                 name="motherName"
                 value={formData.motherName}
                 onChange={handleChange}
-                placeholder="Mrs. Name"
+                placeholder="MRS. NAME"
               />
               <InputField
                 label="Identity Proof Type"
                 name="identityProof"
                 value={formData.identityProof}
                 onChange={handleChange}
-                placeholder="e.g. Aadhar Card"
+                placeholder="E.G. AADHAR CARD"
               />
               <InputField
                 label="Identity Document No."
@@ -351,17 +357,16 @@ const StudentCertificate = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-1 uppercase">
                   Course Name
                 </label>
                 <select
                   name="courseName"
                   value={formData.courseName}
                   onChange={handleCourseChange}
-                  className="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                  className="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all uppercase"
                 >
-                  <option value="">Select Course</option>
-                  {/* FIX: Dynamically mapping options from the dictionary so new ones always show up */}
+                  <option value="">SELECT COURSE</option>
                   {Object.keys(COURSE_SUBJECTS).map((courseKey) => (
                     <option key={courseKey} value={courseKey}>
                       {courseKey}
@@ -371,32 +376,32 @@ const StudentCertificate = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 mb-1 uppercase">
                   Duration
                 </label>
                 <select
                   name="duration"
                   value={formData.duration}
                   onChange={handleChange}
-                  className="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                  className="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all uppercase"
                 >
-                  <option value="">Select Duration</option>
-                  <option value="2 Months">2 Months</option>
-                  <option value="3 Months">3 Months</option>
-                  <option value="4 Months">4 Months</option>
-                  <option value="6 Months">6 Months</option>
-                  <option value="12 Months">12 Months</option>
+                  <option value="">SELECT DURATION</option>
+                  <option value="2 MONTHS">2 MONTHS</option>
+                  <option value="3 MONTHS">3 MONTHS</option>
+                  <option value="4 MONTHS">4 MONTHS</option>
+                  <option value="6 MONTHS">6 MONTHS</option>
+                  <option value="12 MONTHS">12 MONTHS</option>
                 </select>
               </div>
 
-              {formData.courseName === "Other" && (
+              {formData.courseName === "OTHER" && (
                 <div className="md:col-span-2">
                   <InputField
                     label="Enter Custom Course Name"
                     name="customCourseName"
                     value={formData.customCourseName}
                     onChange={handleChange}
-                    placeholder="Type course name here..."
+                    placeholder="TYPE COURSE NAME HERE..."
                   />
                 </div>
               )}
@@ -421,20 +426,20 @@ const StudentCertificate = () => {
                   name="passout"
                   value={formData.passout}
                   onChange={handleChange}
-                  placeholder="e.g. 2025 or Completed"
+                  placeholder="E.G. 2025 OR COMPLETED"
                 />
               </div>
             </div>
 
-            {(formData.courseName || formData.courseName === "Other") && (
+            {(formData.courseName || formData.courseName === "OTHER") && (
               <div className="mt-6 bg-gray-50 p-6 rounded-xl border border-gray-200">
-                <h4 className="text-md font-semibold text-gray-700 mb-4">
+                <h4 className="text-md font-semibold text-gray-700 mb-4 uppercase">
                   Course Subjects
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {formData.subjects.map((subject, index) => (
                     <div key={index}>
-                      <label className="block text-sm font-medium text-gray-600 mb-1">
+                      <label className="block text-sm font-medium text-gray-600 mb-1 uppercase">
                         Subject {index + 1}
                       </label>
                       <input
@@ -443,8 +448,8 @@ const StudentCertificate = () => {
                         onChange={(e) =>
                           handleSubjectChange(index, e.target.value)
                         }
-                        placeholder={`Subject ${index + 1}`}
-                        className="w-full p-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                        placeholder={`SUBJECT ${index + 1}`}
+                        className="w-full p-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all uppercase"
                       />
                     </div>
                   ))}
@@ -457,15 +462,15 @@ const StudentCertificate = () => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-emerald-700 hover:bg-emerald-800 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-emerald-200 flex items-center gap-3 transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="bg-emerald-700 hover:bg-emerald-800 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-emerald-200 flex items-center gap-3 transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed uppercase"
             >
               {loading ? (
                 <>
-                  <Loader2 className="animate-spin" size={24} /> Saving...
+                  <Loader2 className="animate-spin" size={24} /> SAVING...
                 </>
               ) : (
                 <>
-                  <Save size={24} /> Save to Database
+                  <Save size={24} /> SAVE TO DATABASE
                 </>
               )}
             </button>
@@ -485,7 +490,7 @@ const InputField = ({
   placeholder,
 }: any) => (
   <div className="w-full">
-    <label className="block text-sm font-semibold text-gray-700 mb-1">
+    <label className="block text-sm font-semibold text-gray-700 mb-1 uppercase">
       {label}
     </label>
     <input
@@ -494,7 +499,7 @@ const InputField = ({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all placeholder-gray-400"
+      className="w-full p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all placeholder-gray-400 uppercase"
     />
   </div>
 );
