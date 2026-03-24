@@ -17,6 +17,7 @@ const StudentSchema = new mongoose.Schema(
   duration: String,
   startDate: String,
   endDate: String,
+  passout: String,  // <--- ADD THIS EXACT LINE HERE
   subjects: [String], // This saves your array of 6 subjects
   },
   { timestamps: true }
