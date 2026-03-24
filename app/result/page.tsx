@@ -79,38 +79,6 @@ const CertificateSearch = () => {
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
-        {/* 🏆 BIG CARDS FOR EXTERNAL RESULTS & RESOURCES */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          <ResultLinkCard
-            title="O-Level Results"
-            subtitle="Check NIELIT O-Level Official Portal"
-            url={NIELIT_RESULT_URL}
-            color="orange"
-            icon={<GraduationCap size={28} />}
-          />
-          <ResultLinkCard
-            title="CCC Results"
-            subtitle="Check Course on Computer Concepts"
-            url={NIELIT_RESULT_URL}
-            color="emerald"
-            icon={<Award size={28} />}
-          />
-          <ResultLinkCard
-            title="Old Question Papers"
-            subtitle="Download previous year papers"
-            url="https://www.nielit.gov.in/content/old-question-papers-0"
-            color="blue"
-            icon={<Download size={28} />}
-          />
-          <ResultLinkCard
-            title="Scholarship Details"
-            subtitle="Explore scholarship programs"
-            url="/blog"
-            color="purple"
-            icon={<Award size={28} />}
-          />
-        </div>
-
         {/* 🔎 SEARCH SECTION */}
         <div className="bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-slate-200 mb-8 text-center">
           <div className="inline-flex p-3 bg-blue-50 rounded-2xl text-blue-600 mb-4">
@@ -145,6 +113,38 @@ const CertificateSearch = () => {
               Search
             </button>
           </form>
+        </div>
+
+        {/* 🏆 BIG CARDS FOR EXTERNAL RESULTS & RESOURCES */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <ResultLinkCard
+            title="O-Level Results"
+            subtitle="Check NIELIT O-Level Official Portal"
+            url={NIELIT_RESULT_URL}
+            color="orange"
+            icon={<GraduationCap size={28} />}
+          />
+          <ResultLinkCard
+            title="CCC Results"
+            subtitle="Check Course on Computer Concepts"
+            url={NIELIT_RESULT_URL}
+            color="emerald"
+            icon={<Award size={28} />}
+          />
+          <ResultLinkCard
+            title="Old Question Papers"
+            subtitle="Download previous year papers"
+            url="https://www.nielit.gov.in/content/old-question-papers-0"
+            color="blue"
+            icon={<Download size={28} />}
+          />
+          <ResultLinkCard
+            title="Scholarship Details"
+            subtitle="Explore scholarship programs"
+            url="https://www.nielit.gov.in/content/scholarship"
+            color="purple"
+            icon={<Award size={28} />}
+          />
         </div>
 
         {student && (
@@ -228,7 +228,6 @@ const CertificateSearch = () => {
                       />
                     </div>
 
-                    {/* Replaced Gender with Identity Info, added Start and End Date row */}
                     <div className="grid grid-cols-2 gap-4">
                       <DataGroup
                         label="Date of Birth"
@@ -269,7 +268,6 @@ const CertificateSearch = () => {
                       value={student.duration || "—"}
                     />
 
-                    {/* New Subjects Display Block */}
                     {student.subjects &&
                       student.subjects.some((sub) => sub.trim() !== "") && (
                         <div className="pt-2">
@@ -279,7 +277,8 @@ const CertificateSearch = () => {
                           <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] font-bold text-slate-700">
                             {student.subjects.map((sub, index) =>
                               sub.trim() !== "" ? (
-                                <div key={index} className="truncate">
+                                /* Removed "truncate" class here so subjects wrap normally */
+                                <div key={index} className="break-words">
                                   • {sub}
                                 </div>
                               ) : null,
@@ -318,8 +317,6 @@ const CertificateSearch = () => {
                   </div>
 
                   <div className="text-right flex flex-col items-end">
-                    {/* YOUR LOGO REPLACES THE TEXT HERE */}
-                    {/* Ensure logo.png is inside your public/ folder */}
                     <img
                       src="/rapti-logo1.jpg"
                       alt="Rapti Computers Logo"
@@ -336,7 +333,7 @@ const CertificateSearch = () => {
   );
 };
 
-// 🏛️ Helper Component for External Link Cards (Updated with new colors)
+// 🏛️ Helper Component for External Link Cards
 const ResultLinkCard = ({ title, subtitle, url, color, icon }) => {
   const colorStyles = {
     orange:
@@ -380,8 +377,9 @@ const DataGroup = ({
     <label className="text-[9px] font-black uppercase text-slate-400 tracking-wider flex items-center gap-1.5 mb-1">
       {icon} {label}
     </label>
+    {/* Removed "truncate" and added "break-words" so long text wraps to the next line safely */}
     <p
-      className={`${highlight ? "text-xl font-extrabold" : "text-sm font-bold"} ${color} truncate`}
+      className={`${highlight ? "text-xl font-extrabold" : "text-sm font-bold"} ${color} break-words`}
     >
       {value || "—"}
     </p>
