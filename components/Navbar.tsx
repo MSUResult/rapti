@@ -10,7 +10,7 @@ const items = [
   { name: "About", href: "/about" },
   { name: "Courses", href: "/course" },
   { name: "Contact", href: "/contact" },
-  { name: "Result", href: "/result" },
+  { name: "Student Zone", href: "/result" },
   { name: "Blogs", href: "/blog" },
 ];
 

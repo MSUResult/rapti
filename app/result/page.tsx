@@ -79,7 +79,7 @@ const CertificateSearch = () => {
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
-        {/* 🏆 NEW BIG CARDS FOR EXTERNAL RESULTS */}
+        {/* 🏆 BIG CARDS FOR EXTERNAL RESULTS & RESOURCES */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <ResultLinkCard
             title="O-Level Results"
@@ -93,6 +93,20 @@ const CertificateSearch = () => {
             subtitle="Check Course on Computer Concepts"
             url={NIELIT_RESULT_URL}
             color="emerald"
+            icon={<Award size={28} />}
+          />
+          <ResultLinkCard
+            title="Old Question Papers"
+            subtitle="Download previous year papers"
+            url="https://www.nielit.gov.in/content/old-question-papers-0"
+            color="blue"
+            icon={<Download size={28} />}
+          />
+          <ResultLinkCard
+            title="Scholarship Details"
+            subtitle="Explore scholarship programs"
+            url="/blog"
+            color="purple"
             icon={<Award size={28} />}
           />
         </div>
@@ -322,13 +336,16 @@ const CertificateSearch = () => {
   );
 };
 
-// 🏛️ New Helper Component for External Link Cards
+// 🏛️ Helper Component for External Link Cards (Updated with new colors)
 const ResultLinkCard = ({ title, subtitle, url, color, icon }) => {
   const colorStyles = {
     orange:
       "bg-orange-50 border-orange-100 text-orange-600 hover:bg-orange-100",
     emerald:
       "bg-emerald-50 border-emerald-100 text-emerald-600 hover:bg-emerald-100",
+    blue: "bg-blue-50 border-blue-100 text-blue-600 hover:bg-blue-100",
+    purple:
+      "bg-purple-50 border-purple-100 text-purple-600 hover:bg-purple-100",
   };
 
   return (

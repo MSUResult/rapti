@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const CourseTicker = () => {
   const text =
-    "🎓 ADMISSION OPEN 2026 • CCC COURSE • O LEVEL DIPLOMA • DCA PROGRAM • TALLY PRIME TRAINING • ADVANCED EXCEL • ";
+    "🎓 ADMISSION OPEN 2026 • NIELET CCC • NIELET O LEVEL  • TALLY PRIME  • ADVANCED EXCEL";
 
   return (
     <div className="w-full bg-yellow-400 py-4 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] overflow-hidden border-y-2 border-blue-900/10">
@@ -13,7 +13,7 @@ const CourseTicker = () => {
         animate={{ x: ["0%", "-50%"] }}
         transition={{
           repeat: Infinity,
-          duration: 5,
+          duration: 7,
           ease: "linear",
         }}
       >

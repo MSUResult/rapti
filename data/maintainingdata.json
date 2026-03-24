@@ -1,0 +1,28 @@
+  const resources = [
+    {
+      title: "Download Syllabus",
+      href: "https://www.nielit.gov.in/content/computer-course-0",
+      icon: <BookOpen size={18} />,
+    },
+    {
+      title: "Eligibility Criteria",
+      href: "https://student.nielit.gov.in/Home.aspx",
+      icon: <Search size={18} />,
+    },
+
+    {
+      title: "Admit Card/Results",
+      href: "/result",
+      icon: <FileText size={18} />,
+    },
+    {
+      title: "Old Question Papers",
+      href: "https://www.nielit.gov.in/content/old-question-papers-0",
+      icon: <Download size={18} />,
+    },
+    {
+      title: "Scholarship Details",
+      href: "/blog",
+      icon: <Award size={18} />,
+    },
+  ];

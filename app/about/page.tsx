@@ -14,6 +14,7 @@ const AboutUs = () => {
     { name: "Mrs. Sapna Jain", role: "PGDCA" },
     { name: "Mrs. Shalini Jain", role: "B.Sc" },
     { name: "Mrs. Rashi Jain", role: "MCA" },
+    { name: "Er. Ishika Jain", role: "B.Tech - Computer Science" },
   ];
 
   const staff = [
