@@ -8,6 +8,7 @@ export default async function dbConnect() {
     }
 
     await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
       dbName: "Rapti_Computers",
     });
 
