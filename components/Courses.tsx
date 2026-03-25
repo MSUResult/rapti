@@ -21,10 +21,16 @@ const courses = [
     icon: Monitor,
     title: "CCC Certification",
     subtitle: "Course on Computer Concepts",
-    description: "Essential computer literacy course recognized by the Government of India. Perfect for beginners and government job aspirants.",
+    description:
+      "Essential computer literacy course recognized by the Government of India. Perfect for beginners and government job aspirants.",
     duration: "3 Months",
     students: "5000+",
-    features: ["Basic Computer Skills", "MS Office Suite", "Internet & Email", "Digital Finance"],
+    features: [
+      "Basic Computer Skills",
+      "MS Office Suite",
+      "Internet & Email",
+      "Digital Finance",
+    ],
     color: "from-blue-600 to-cyan-500",
     iconBg: "bg-blue-100 text-blue-600",
   },
@@ -32,33 +38,34 @@ const courses = [
     icon: FileCode,
     title: "O Level Diploma",
     subtitle: "Foundation Level IT Course",
-    description: "Comprehensive IT diploma equivalent to Foundation Level course, recognized for government jobs and higher studies.",
+    description:
+      "Comprehensive IT diploma equivalent to Foundation Level course, recognized for government jobs and higher studies.",
     duration: "1 Year",
     students: "3000+",
-    features: ["Python Programming", "Web Technologies", "IoT Fundamentals", "Database Mgt."],
+    features: [
+      "Python Programming",
+      "Web Technologies",
+      "IoT Fundamentals",
+      "Database Mgt.",
+    ],
     color: "from-indigo-600 to-purple-500",
     iconBg: "bg-indigo-100 text-indigo-600",
     featured: true,
   },
   {
-    icon: GraduationCap,
-    title: "DCA Program",
-    subtitle: "Diploma in Computer Applications",
-    description: "Advanced diploma program covering comprehensive IT skills with hands-on project experience and industry exposure.",
-    duration: "1 Year",
-    students: "2000+",
-    features: ["Advanced Programming", "Software Dev", "Networking Basics", "Project Work"],
-    color: "from-amber-500 to-orange-500",
-    iconBg: "bg-amber-100 text-amber-600",
-  },
-  {
     icon: BookOpen,
     title: "DIT Diploma",
     subtitle: "Diploma in Information Technology",
-    description: "A career-oriented program focusing on core IT infrastructure, hardware, and essential software engineering concepts.",
+    description:
+      "A career-oriented program focusing on core IT infrastructure, hardware, and essential software engineering concepts.",
     duration: "1 Year",
     students: "1500+",
-    features: ["Hardware & Networking", "Operating Systems", "System Analysis", "IT Security"],
+    features: [
+      "Hardware & Networking",
+      "Operating Systems",
+      "System Analysis",
+      "IT Security",
+    ],
     color: "from-emerald-600 to-teal-500",
     iconBg: "bg-emerald-100 text-emerald-600",
   },
@@ -66,10 +73,16 @@ const courses = [
     icon: Calculator,
     title: "Tally Prime",
     subtitle: "Professional Accounting Course",
-    description: "Master the industry-standard accounting software. Learn GST, payroll, and financial management for modern businesses.",
+    description:
+      "Master the industry-standard accounting software. Learn GST, payroll, and financial management for modern businesses.",
     duration: "3 Months",
     students: "4500+",
-    features: ["GST Implementation", "Inventory Management", "Payroll & Taxation", "Financial Reporting"],
+    features: [
+      "GST Implementation",
+      "Inventory Management",
+      "Payroll & Taxation",
+      "Financial Reporting",
+    ],
     color: "from-rose-600 to-pink-500",
     iconBg: "bg-rose-100 text-rose-600",
   },
@@ -123,7 +136,9 @@ export const Courses = () => {
                 </div>
               )}
 
-              <div className={`h-1.5 md:h-2 w-full bg-gradient-to-r ${course.color}`} />
+              <div
+                className={`h-1.5 md:h-2 w-full bg-gradient-to-r ${course.color}`}
+              />
 
               <div className="p-6 md:p-8 flex flex-col h-full flex-grow">
                 <div className="mb-4 md:mb-6">
@@ -147,18 +162,25 @@ export const Courses = () => {
                 <div className="flex items-center gap-3 md:gap-4 mb-6 py-4 border-y border-slate-100">
                   <div className="flex items-center gap-1.5 text-xs md:text-sm">
                     <Clock className="w-4 h-4 text-slate-400" />
-                    <span className="text-slate-700 font-semibold">{course.duration}</span>
+                    <span className="text-slate-700 font-semibold">
+                      {course.duration}
+                    </span>
                   </div>
                   <div className="h-4 w-[1px] bg-slate-200" />
                   <div className="flex items-center gap-1.5 text-xs md:text-sm">
                     <Users className="w-4 h-4 text-slate-400" />
-                    <span className="text-slate-700 font-semibold">{course.students}</span>
+                    <span className="text-slate-700 font-semibold">
+                      {course.students}
+                    </span>
                   </div>
                 </div>
 
                 <ul className="space-y-3 mb-8">
                   {course.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3 text-xs md:text-sm text-slate-600">
+                    <li
+                      key={i}
+                      className="flex items-start gap-3 text-xs md:text-sm text-slate-600"
+                    >
                       <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
                       <span>{feature}</span>
                     </li>
@@ -183,7 +205,8 @@ export const Courses = () => {
 
         <div className="text-center mt-12 md:mt-20 bg-white border border-slate-200 p-6 md:p-10 rounded-2xl md:rounded-3xl shadow-sm max-w-4xl mx-auto">
           <p className="text-slate-600 mb-4 font-medium text-sm md:text-base">
-            Looking for something else? We offer customized corporate training and workshops.
+            Looking for something else? We offer customized corporate training
+            and workshops.
           </p>
           <button className="inline-flex items-center gap-2 text-indigo-600 font-bold hover:text-indigo-700 transition-all underline-offset-4 hover:underline text-sm md:text-base">
             Explore All 20+ Courses

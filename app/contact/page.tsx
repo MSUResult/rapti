@@ -114,7 +114,7 @@ const ContactUs = () => {
                   {/* Subject */}
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Subject
+                      Course
                     </label>
                     <input
                       type="text"
@@ -150,20 +150,20 @@ const ContactUs = () => {
       </div>
 
       {/* Optional: Embedded Map Placeholder */}
-<div className="max-w-7xl mx-auto px-4 pb-20">
-  <div className="w-full h-96 rounded-3xl overflow-hidden shadow-inner">
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3286.453192452735!2d77.53122177554962!3d29.935463674978646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjnCsDU2JzA3LjciTiA3N8KwMzInMDEuNyJF!5e1!3m2!1sen!2sin!4v1773852143238!5m2!1sen!2sin"
-      width="100%"
-      height="100%"
-      style={{ border: 0 }}
-      allowFullScreen
-      loading="lazy"
-      referrerPolicy="no-referrer-when-downgrade"
-      className="w-full h-full"
-    ></iframe>
-  </div>
-</div>
+      <div className="max-w-7xl mx-auto px-4 pb-20">
+        <div className="w-full h-96 rounded-3xl overflow-hidden shadow-inner">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3286.453192452735!2d77.53122177554962!3d29.935463674978646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjnCsDU2JzA3LjciTiA3N8KwMzInMDEuNyJF!5e1!3m2!1sen!2sin!4v1773852143238!5m2!1sen!2sin"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="w-full h-full"
+          ></iframe>
+        </div>
+      </div>
     </div>
   );
 };

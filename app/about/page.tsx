@@ -22,7 +22,7 @@ const AboutUs = () => {
     "Mrs. Draksha Islam (MCA)",
     "Mr. Mohit Kumar (MCA)",
     "Mr. Vidhu Bhushan Sharma (MCA)",
-    "Mr. Dharmendar Kumar (10+2)",
+    "Mr. Dharmendar Kumar (CHM)",
   ];
 
   // Placeholder for your office images
