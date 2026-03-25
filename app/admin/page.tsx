@@ -1,25 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Lock, KeyRound, RefreshCw } from "lucide-react";
-import {
-  verifyAdminPassword,
-  updateAdminPassword,
-} from "@/lib/actions/adminPassword.js";
 import StudentCertificate from "@/components/admin/StruentCertificate";
 import Sidebar from "@/components/admin/sidebar";
 import Galllery from "@/components/admin/Galllery";
 import AdminStudentCertificate from "@/components/admin/Certificates";
-
-
-  export const dynamic = "force-dynamic";
 
 const Page = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [error, setError] = useState(false);
   const [activeTab, setActiveTab] = useState("admission");
-
-
 
   // Reset Form States
   const [oldPassword, setOldPassword] = useState("");
@@ -34,28 +25,50 @@ const Page = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const isValid = await verifyAdminPassword(passwordInput);
-    if (isValid) {
-      setIsAuthenticated(true);
-      localStorage.setItem("isAdminAuth", "true");
-      setError(false);
-    } else {
+    try {
+      const res = await fetch("api/admin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ inputPassword: passwordInput }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setIsAuthenticated(true);
+        localStorage.setItem("isAdminAuth", "true");
+        setError(false);
+      } else {
+        setError(true);
+      }
+    } catch (err) {
+      console.error("Login failed:", err);
       setError(true);
     }
   };
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
-    const result = await updateAdminPassword(oldPassword, newPassword);
-    if (result.success) {
-      setResetMessage({
-        type: "success",
-        text: "Password updated in Database!",
+    try {
+      const res = await fetch("/api/admin/update", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ oldPassword, newPassword }),
       });
-      setOldPassword("");
-      setNewPassword("");
-    } else {
-      setResetMessage({ type: "error", text: result.error });
+      const data = await res.json();
+
+      if (data.success) {
+        setResetMessage({
+          type: "success",
+          text: "Password updated in Database!",
+        });
+        setOldPassword("");
+        setNewPassword("");
+      } else {
+        setResetMessage({ type: "error", text: data.error || "Update failed" });
+      }
+    } catch (err) {
+      console.error("Update failed:", err);
+      setResetMessage({ type: "error", text: "Server error occurred" });
     }
   };
 
