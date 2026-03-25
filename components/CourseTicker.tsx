@@ -4,28 +4,32 @@ import { motion } from "framer-motion";
 
 const CourseTicker = () => {
   const text =
-    "🎓 ADMISSION OPEN 2026 • NIELET CCC • NIELET O LEVEL  • TALLY PRIME  • ADVANCED EXCEL";
+    "🎓 ADMISSION OPEN 2026 • NIELIT CCC • NIELIT O LEVEL • TALLY PRIME • ADVANCED EXCEL";
 
   return (
-    <div className="w-full bg-yellow-400 py-4 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] overflow-hidden border-y-2 border-blue-900/10">
+    <div className="w-full bg-yellow-400 py-4 overflow-hidden border-y-2 border-blue-900/10">
       <motion.div
-        className="flex whitespace-nowrap items-center"
-        animate={{ x: ["0%", "-50%"] }}
+        className="flex whitespace-nowrap"
+        animate={{ x: ["0%", "-100%"] }}
         transition={{
           repeat: Infinity,
-          duration: 7,
+          duration: 10,
           ease: "linear",
         }}
       >
-        {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="flex items-center">
-            <p className="text-xl md:text-3xl font-black tracking-tighter text-blue-950 mx-8 uppercase">
-              {text}
-            </p>
-            {/* Visual separator */}
-            <div className="h-3 w-3 rounded-full bg-blue-600 animate-pulse" />
-          </div>
-        ))}
+        {/* First copy */}
+        <div className="flex items-center">
+          <p className="text-xl md:text-3xl font-black mx-8 uppercase text-blue-950">
+            {text}
+          </p>
+        </div>
+
+        {/* Duplicate copy (IMPORTANT) */}
+        <div className="flex items-center">
+          <p className="text-xl md:text-3xl font-black mx-8 uppercase text-blue-950">
+            {text}
+          </p>
+        </div>
       </motion.div>
     </div>
   );
