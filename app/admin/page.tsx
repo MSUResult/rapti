@@ -10,11 +10,16 @@ import Sidebar from "@/components/admin/sidebar";
 import Galllery from "@/components/admin/Galllery";
 import AdminStudentCertificate from "@/components/admin/Certificates";
 
+
+  export const dynamic = "force-dynamic";
+
 const Page = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [error, setError] = useState(false);
   const [activeTab, setActiveTab] = useState("admission");
+
+
 
   // Reset Form States
   const [oldPassword, setOldPassword] = useState("");
