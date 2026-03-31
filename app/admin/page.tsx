@@ -1,9 +1,15 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
+
 import { Lock, KeyRound, RefreshCw } from "lucide-react";
+
 import StudentCertificate from "@/components/admin/StruentCertificate";
+
 import Sidebar from "@/components/admin/sidebar";
+
 import Galllery from "@/components/admin/Galllery";
+
 import AdminStudentCertificate from "@/components/admin/Certificates";
 
 const Page = () => {
@@ -11,6 +17,9 @@ const Page = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [error, setError] = useState(false);
   const [activeTab, setActiveTab] = useState("admission");
+
+  // ✅ NEW: loading state
+  const [loading, setLoading] = useState(false);
 
   // Reset Form States
   const [oldPassword, setOldPassword] = useState("");
@@ -25,12 +34,19 @@ const Page = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // ✅ prevent multiple clicks
+    if (loading) return;
+
+    setLoading(true);
+
     try {
       const res = await fetch("api/admin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ inputPassword: passwordInput }),
       });
+
       const data = await res.json();
 
       if (data.success) {
@@ -43,6 +59,9 @@ const Page = () => {
     } catch (err) {
       console.error("Login failed:", err);
       setError(true);
+    } finally {
+      // ✅ re-enable button
+      setLoading(false);
     }
   };
 
@@ -54,6 +73,7 @@ const Page = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ oldPassword, newPassword }),
       });
+
       const data = await res.json();
 
       if (data.success) {
@@ -82,6 +102,7 @@ const Page = () => {
             </div>
             <h1 className="text-2xl font-black text-gray-800">Secure Access</h1>
           </div>
+
           <form onSubmit={handleLogin} className="space-y-4">
             <input
               type="password"
@@ -90,16 +111,20 @@ const Page = () => {
               value={passwordInput}
               onChange={(e) => setPasswordInput(e.target.value)}
             />
+
             {error && (
               <p className="text-red-500 text-sm text-center">
                 Invalid security key
               </p>
             )}
+
             <button
               type="submit"
-              className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold"
+              disabled={loading} // ✅ disable button
+              className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold disabled:opacity-60"
             >
-              Verify Identity
+              {loading ? "Checking..." : "Verify Identity"}{" "}
+              {/* ✅ optional text */}
             </button>
           </form>
         </div>
@@ -110,6 +135,7 @@ const Page = () => {
   return (
     <div className="flex min-h-screen bg-slate-50">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+
       <div className="flex-1 p-8">
         <div className="max-w-6xl mx-auto">
           {activeTab === "admission" && <StudentCertificate />}
@@ -124,6 +150,7 @@ const Page = () => {
                   Security Settings
                 </h2>
               </div>
+
               <form onSubmit={handleChangePassword} className="space-y-4">
                 <input
                   type="password"
@@ -133,6 +160,7 @@ const Page = () => {
                   onChange={(e) => setOldPassword(e.target.value)}
                   required
                 />
+
                 <input
                   type="password"
                   placeholder="New Password"
@@ -141,13 +169,19 @@ const Page = () => {
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
                 />
+
                 {resetMessage.text && (
                   <p
-                    className={`text-sm ${resetMessage.type === "success" ? "text-emerald-600" : "text-red-500"}`}
+                    className={`text-sm ${
+                      resetMessage.type === "success"
+                        ? "text-emerald-600"
+                        : "text-red-500"
+                    }`}
                   >
                     {resetMessage.text}
                   </p>
                 )}
+
                 <button
                   type="submit"
                   className="w-full bg-emerald-600 text-white py-3 rounded-xl font-bold flex justify-center gap-2"
