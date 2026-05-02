@@ -164,7 +164,7 @@ const Page = () => {
                 <input
                   type="password"
                   placeholder="New Password"
-                  className="w-full p-3 bg-gray-50 border rounded-xl"
+                  className="w-full text-black p-3 bg-gray-50 border rounded-xl"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
